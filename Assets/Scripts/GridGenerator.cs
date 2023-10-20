@@ -57,6 +57,8 @@ public class GridGenerator : MonoBehaviour
 
                 //We make sure to set the newly created tile in the appropriate slot in the 2D array and then name it accordingly
                 tiles[r, c] = t;
+                t.row = r;
+                t.column = c;
                 tiles[r, c].name = "[" + r.ToString() + "," + c.ToString() + "]";
 
             }
