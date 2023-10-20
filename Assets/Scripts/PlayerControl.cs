@@ -152,6 +152,7 @@ public class PlayerControl : MonoBehaviour
 
             //This step is also necessary to make sure out place on the grid gets properly updated
             SetTargetTile(lastTile);
+            scoreCounter = scoreCounter - 25;
         }
         else
         {
