@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
     public CameraShake cam;
+    public GameManager gameManager;
     public float moveSpeed;
     public GridGenerator grid;
     private bool isMoving;
@@ -142,6 +144,15 @@ public class PlayerControl : MonoBehaviour
             //This step is also necessary to make sure out place on the grid gets properly updated
             SetTargetTile(lastTile);
         }
+        else
+        {
+            isMoving = false;
+        }
+
+        if (currentTile.isReset)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        } 
         else
         {
             isMoving = false;
