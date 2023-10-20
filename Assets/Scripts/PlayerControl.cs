@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class PlayerControl : MonoBehaviour
     public GameManager gameManager;
     public float moveSpeed;
     public GridGenerator grid;
+    public int scoreCounter;
+    public TextMeshProUGUI scoreCounterText;
     private bool isMoving;
     private Color playerColor;
    
@@ -153,6 +157,16 @@ public class PlayerControl : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         } 
+        else
+        {
+            isMoving = false;
+        }
+
+        if (currentTile.isItem)
+        {
+            scoreCounter++;
+            scoreCounterText.text = "Score: " + scoreCounter.ToString();
+        }
         else
         {
             isMoving = false;
