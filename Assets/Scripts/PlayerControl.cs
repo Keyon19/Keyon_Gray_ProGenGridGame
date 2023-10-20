@@ -10,9 +10,12 @@ public class PlayerControl : MonoBehaviour
     public CameraShake cam;
     public GameManager gameManager;
     public float moveSpeed;
+    public float maxMoveSpeed = 1;
     public GridGenerator grid;
     public int scoreCounter;
     public TextMeshProUGUI scoreCounterText;
+    public int moveCounter;
+    public TextMeshProUGUI moveCounterText;
     private bool isMoving;
     private Color playerColor;
    
@@ -63,7 +66,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
         
-        //here is what triggers the player to move, once the targettile and currentle are not the samw
+        //here is what triggers the player to move, once the targettile and currentle are not the same
         //We run the coroutine that moves the player from their current position to their target position
         if (targetTile != currentTile)
         {
@@ -116,7 +119,7 @@ public class PlayerControl : MonoBehaviour
         isMoving = true;
 
         float timeElapsed = 0;
-        float duration = 1 / moveSpeed;
+        float duration = maxMoveSpeed / moveSpeed;
 
         while (timeElapsed < duration)
         {
@@ -136,6 +139,8 @@ public class PlayerControl : MonoBehaviour
 
     public void ProcessTileEvents()
     {
+        moveCounter++;
+        moveCounterText.text = "Moves: " + moveCounter.ToString(); 
         //Currently the only tile effect we have is Traps
         //this function checks if the current tile is a trap tile
         if (currentTile.isTrap)
@@ -164,12 +169,14 @@ public class PlayerControl : MonoBehaviour
 
         if (currentTile.isItem)
         {
-            scoreCounter++;
+            scoreCounter=scoreCounter+50;
             scoreCounterText.text = "Score: " + scoreCounter.ToString();
+            maxMoveSpeed = 5;
         }
         else
         {
             isMoving = false;
+            maxMoveSpeed = 1;
         }
 
     }
