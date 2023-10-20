@@ -160,7 +160,7 @@ public class GridGenerator : MonoBehaviour
 
         Tile t = GetRandomTile();
 
-        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || t.row <6)
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || t.row < 6)
         {
             t = GetRandomTile();
         }
