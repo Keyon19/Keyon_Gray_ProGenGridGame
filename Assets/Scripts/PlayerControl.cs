@@ -145,6 +145,7 @@ public class PlayerControl : MonoBehaviour
         //this function checks if the current tile is a trap tile
         if (currentTile.isTrap)
         {
+            
             //If it is, move the player back to the last tile they were on
             StartCoroutine(FlashPlayer());
             //And shake the camera for effect
@@ -152,7 +153,7 @@ public class PlayerControl : MonoBehaviour
 
             //This step is also necessary to make sure out place on the grid gets properly updated
             SetTargetTile(lastTile);
-            scoreCounter = scoreCounter - 25;
+            
         }
         else
         {
@@ -172,14 +173,26 @@ public class PlayerControl : MonoBehaviour
         {
             scoreCounter=scoreCounter+50;
             scoreCounterText.text = "Score: " + scoreCounter.ToString();
+            currentTile.isInaccessible = true;
+            currentTile.AdjustColor(Color.black);
+            SetTargetTile(lastTile);
+        }
+        else
+        {
+            isMoving = false;
+        }
+        if (currentTile.isSlowed)
+        {
+            scoreCounterText.text = "Score: " + scoreCounter.ToString();
             maxMoveSpeed = 5;
+            scoreCounter = scoreCounter - 40;
+            moveCounter = moveCounter - 5;
         }
         else
         {
             isMoving = false;
             maxMoveSpeed = 1;
         }
-
     }
 
     //This coroutine just flashs the player red when they are hit by a trap

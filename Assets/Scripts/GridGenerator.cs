@@ -21,11 +21,13 @@ public class GridGenerator : MonoBehaviour
     [Range(0, 5)] public int trapTileCount;
     [Range(0, 5)] public int itemTileCount; 
     [Range(0, 5)] public int resetTileCount;
+    [Range(0, 5)] public int slowedTileCount;
 
     public List<Tile> trapTiles = new List<Tile>();
     private List<Tile> inaccessibleTiles = new List<Tile>();
     public List<Tile> itemTiles = new List<Tile>();
     public List<Tile> resetTiles = new List<Tile>();
+    public List<Tile> slowedTiles = new List<Tile>();
 
 
 
@@ -82,6 +84,10 @@ public class GridGenerator : MonoBehaviour
         {
             AddReset();
         }
+        for (int i = 0; i < slowedTileCount; i++)
+        {
+            AddSlowed();
+        }
     }
 
     //If we ever need the position for a tile, we can get it from one of these two functions.
@@ -106,7 +112,7 @@ public class GridGenerator : MonoBehaviour
         //We check that it isnt already been inluded as either a trap or Hole and that it doesnt set the player's start position 
         //as a trap. We do this by checking that, while the tile is either the origin tile, a hole or a trap, we keep getting a new tile
 
-        while (t == tiles[0,0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t))
+        while (t == tiles[0,0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
         {
             t = GetRandomTile();
         }
@@ -127,7 +133,7 @@ public class GridGenerator : MonoBehaviour
         //We check that it isnt already been inluded as either a trap or Hole and that it doesnt set the player's start position 
         //as a trap. We do this by checking that, while the tile is either the origin tile, a hole or a trap, we keep getting a new tile
 
-        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t))
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
         {
             t = GetRandomTile();
         }
@@ -144,7 +150,7 @@ public class GridGenerator : MonoBehaviour
 
         Tile t = GetRandomTile();
 
-        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t))
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
         {
             t = GetRandomTile();
         }
@@ -160,7 +166,7 @@ public class GridGenerator : MonoBehaviour
 
         Tile t = GetRandomTile();
 
-        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || t.row < 6)
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t) || t.row > 1 || t.column > 1)
         {
             t = GetRandomTile();
         }
@@ -168,6 +174,27 @@ public class GridGenerator : MonoBehaviour
         resetTiles.Add(t);
         t.AdjustColor(Color.green);
         t.isReset = true;
+
+    }
+
+    private void AddSlowed()
+    {
+        //We get a random tile 
+        Tile t = GetRandomTile();
+
+        //We check that it isnt already been inluded as either a trap or Hole and that it doesnt set the player's start position 
+        //as a trap. We do this by checking that, while the tile is either the origin tile, a hole or a trap, we keep getting a new tile
+
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
+        {
+            t = GetRandomTile();
+        }
+
+        //...when we break out of the while loop, it means what the random tile selected fulfills the above criteria
+        //So we add it to the appropriate list, color it and set the appropriate bool to true
+        slowedTiles.Add(t);
+        t.AdjustColor(Color.yellow);
+        t.isSlowed = true;
 
     }
 

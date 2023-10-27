@@ -423,13 +423,15 @@ MonoBehaviour:
   columns: 7
   tilePrefab: {fileID: 7633368515072236349, guid: 0e0e804884b3ab54a9e7ad2b3d6b617a, type: 3}
   originPos: {x: -3, y: -3, z: 0}
-  holeCount: 5
-  trapTileCount: 3
+  holeCount: 3
+  trapTileCount: 2
   itemTileCount: 4
   resetTileCount: 1
+  slowedTileCount: 3
   trapTiles: []
   itemTiles: []
   resetTiles: []
+  slowedTiles: []
 --- !u!4 &738049236
 Transform:
   m_ObjectHideFlags: 0

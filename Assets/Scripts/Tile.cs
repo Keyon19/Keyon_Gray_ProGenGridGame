@@ -17,6 +17,7 @@ public class Tile : MonoBehaviour
     public bool isInaccessible;
     public bool isItem;
     public bool isReset;
+    public bool isSlowed;
 
 
     //This is a method for adjusting the color of the tile, we call it in the GridGenerator to color the tile once we've 
