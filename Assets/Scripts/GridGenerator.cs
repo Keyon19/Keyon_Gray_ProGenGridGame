@@ -174,11 +174,14 @@ public class GridGenerator : MonoBehaviour
     private void AddReset()
     {
 
-        Tile t = GetRandomTile();
+        //Tile t = GetRandomTile();
+        Tile t = tiles[3, 3];
 
         while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
+         //t.column >2 || t.column <4 || t.row >2 || t.row <4 
         {
-            t = GetRandomTile();
+            //t = GetRandomTile();
+            t = tiles[3, 3];
         }
 
         resetTiles.Add(t);
@@ -218,7 +221,7 @@ public class GridGenerator : MonoBehaviour
         return tiles[3, 3];
     }
 
-    /*
+    
     private bool TileColumnCheck(Tile _t) 
     {
         
@@ -237,5 +240,5 @@ public class GridGenerator : MonoBehaviour
         return  value || value2; 
         
     }
-    */
+    
 }

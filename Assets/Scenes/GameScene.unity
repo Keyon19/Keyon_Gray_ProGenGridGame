@@ -206,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a515fd8316e254c9c1a61916f872d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: {fileID: 0}
 --- !u!4 &488166818
 Transform:
   m_ObjectHideFlags: 0
@@ -333,7 +334,6 @@ GameObject:
   - component: {fileID: 587032354}
   - component: {fileID: 587032357}
   - component: {fileID: 587032356}
-  - component: {fileID: 587032355}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -361,21 +361,6 @@ RectTransform:
   m_AnchoredPosition: {x: 795, y: -170}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &587032355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587032353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8224d2d09a7ecf49acacab0aa1174ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeStart: 20
-  timeActive: 0
-  TimerText: {fileID: 587032356}
 --- !u!114 &587032356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +558,7 @@ MonoBehaviour:
   rows: 7
   columns: 7
   tilePrefab: {fileID: 7633368515072236349, guid: 0e0e804884b3ab54a9e7ad2b3d6b617a, type: 3}
+  itemTilePrefab: {fileID: 0}
   originPos: {x: -3, y: -3, z: 0}
   holeCount: 0
   trapTileCount: 0

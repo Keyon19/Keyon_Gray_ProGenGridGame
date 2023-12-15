@@ -17,6 +17,11 @@ public class Timer : MonoBehaviour
         timeActive = true;
     }
 
+    public void PauseTimer()
+    {
+        //Pausing
+    }
+
     void Update()
     {
         if (timeActive)
