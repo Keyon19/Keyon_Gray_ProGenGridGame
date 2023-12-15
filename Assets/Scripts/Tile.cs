@@ -28,4 +28,9 @@ public class Tile : MonoBehaviour
         GetComponent<SpriteRenderer>().color = tileColor;
     }
 
+    public void ChangePrefab(Sprite gameobject)
+    {
+        GetComponent<SpriteRenderer>().sprite = gameobject;
+    }
+
 }

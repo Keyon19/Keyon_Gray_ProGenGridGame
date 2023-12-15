@@ -12,6 +12,8 @@ public class GridGenerator : MonoBehaviour
 
     // Tile prefab were going to use to make the grid
     public GameObject tilePrefab;
+    public GameObject itemTilePrefab;
+
 
     //Origin tile position , All subsequent tiles will be positioned based on this one
     //Origin tile is [0,0];
@@ -19,16 +21,16 @@ public class GridGenerator : MonoBehaviour
 
     [Range(0, 5)] public int holeCount;
     [Range(0, 5)] public int trapTileCount;
-    [Range(0, 5)] public int itemTileCount; 
-    [Range(0, 5)] public int resetTileCount;
-    [Range(0, 5)] public int slowedTileCount;
+    [Range(0, 10)] public int itemTileCount;
+    [Range(0, 1)] public int resetTileCount;
+    [Range(0, 10)] public int slowedTileCount;
 
     public List<Tile> trapTiles = new List<Tile>();
     private List<Tile> inaccessibleTiles = new List<Tile>();
     public List<Tile> itemTiles = new List<Tile>();
     public List<Tile> resetTiles = new List<Tile>();
     public List<Tile> slowedTiles = new List<Tile>();
-
+    
 
 
     void Awake()
@@ -38,7 +40,7 @@ public class GridGenerator : MonoBehaviour
 
         //Call code that makes the grid
         MakeGrid();
-        
+
     }
 
     private void MakeGrid()
@@ -51,7 +53,7 @@ public class GridGenerator : MonoBehaviour
                 //Here we want to get the size of the Tile sprite so that he can place them side by side
                 float sizeX = tilePrefab.GetComponent<SpriteRenderer>().size.x;
                 float sizeY = tilePrefab.GetComponent<SpriteRenderer>().size.y;
-                Vector2 pos = new Vector3(originPos.x + sizeX * r, originPos.y + sizeY * c,0);
+                Vector2 pos = new Vector3(originPos.x + sizeX * r, originPos.y + sizeY * c, 0);
 
                 //Here we Instantiate the GameObject and then immediately get a reference to it's Tile script.
                 GameObject o = Instantiate(tilePrefab, pos, Quaternion.identity, transform);
@@ -79,6 +81,7 @@ public class GridGenerator : MonoBehaviour
         for (int i = 0; i < itemTileCount; i++)
         {
             AddItem();
+
         }
         for (int i = 0; i < resetTileCount; i++)
         {
@@ -101,7 +104,6 @@ public class GridGenerator : MonoBehaviour
     public Vector3 GetTilePosition(Tile t)
     {
         return t.transform.position;
-
     }
 
     private void AddTraps()
@@ -112,7 +114,7 @@ public class GridGenerator : MonoBehaviour
         //We check that it isnt already been inluded as either a trap or Hole and that it doesnt set the player's start position 
         //as a trap. We do this by checking that, while the tile is either the origin tile, a hole or a trap, we keep getting a new tile
 
-        while (t == tiles[0,0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t) )
         {
             t = GetRandomTile();
         }
@@ -145,19 +147,27 @@ public class GridGenerator : MonoBehaviour
         t.isInaccessible = true;
     }
 
-    private void AddItem()
+    public void AddItem()
     {
 
         Tile t = GetRandomTile();
 
         while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
+            
         {
             t = GetRandomTile();
+
         }
 
         itemTiles.Add(t);
         t.AdjustColor(Color.blue);
         t.isItem = true;
+
+        //t.ChangePrefab(Sprite.Instantiate(itemTilePrefab));
+
+        //GetTilePosition(t);
+        GetTilePosition(t.row, t.column);
+        Debug.Log("item = " + t);
 
     }
 
@@ -166,7 +176,7 @@ public class GridGenerator : MonoBehaviour
 
         Tile t = GetRandomTile();
 
-        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t) || t.row > 1 || t.column > 1)
+        while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
         {
             t = GetRandomTile();
         }
@@ -177,25 +187,23 @@ public class GridGenerator : MonoBehaviour
 
     }
 
-    private void AddSlowed()
-    {
-        //We get a random tile 
+    public void AddSlowed()
+    { 
         Tile t = GetRandomTile();
-
-        //We check that it isnt already been inluded as either a trap or Hole and that it doesnt set the player's start position 
-        //as a trap. We do this by checking that, while the tile is either the origin tile, a hole or a trap, we keep getting a new tile
+        
 
         while (t == tiles[0, 0] || inaccessibleTiles.Contains(t) || trapTiles.Contains(t) || itemTiles.Contains(t) || resetTiles.Contains(t) || slowedTiles.Contains(t))
+            
         {
-            t = GetRandomTile();
+           t = GetRandomTile();
         }
 
-        //...when we break out of the while loop, it means what the random tile selected fulfills the above criteria
-        //So we add it to the appropriate list, color it and set the appropriate bool to true
         slowedTiles.Add(t);
         t.AdjustColor(Color.yellow);
         t.isSlowed = true;
 
+        GetTilePosition(t);
+        //Debug.Log("slowed = " + t);
     }
 
     private Tile GetRandomTile()
@@ -205,7 +213,29 @@ public class GridGenerator : MonoBehaviour
 
     }
 
+    private Tile Reset()
+    {
+        return tiles[3, 3];
+    }
 
+    /*
+    private bool TileColumnCheck(Tile _t) 
+    {
+        
+        bool value;
+        bool value2; 
+        value = tiles[0, 0] || inaccessibleTiles.Contains(_t) || trapTiles.Contains(_t);
+        value2 = itemTiles.Contains(_t) || resetTiles.Contains(_t) || slowedTiles.Contains(_t);
 
-
+        if (_t.column > 1)
+        {
+            //code 
+            value2 = false;
+        }
+        else { value2 = true;
+        }
+        return  value || value2; 
+        
+    }
+    */
 }
