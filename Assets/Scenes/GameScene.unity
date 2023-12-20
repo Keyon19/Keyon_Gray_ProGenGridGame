@@ -206,7 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a515fd8316e254c9c1a61916f872d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 0}
+  playerControl: {fileID: 67102916}
+  timeStart: 10
+  timeActive: 1
+  TimerText: {fileID: 587032356}
 --- !u!4 &488166818
 Transform:
   m_ObjectHideFlags: 0
@@ -562,7 +565,7 @@ MonoBehaviour:
   originPos: {x: -3, y: -3, z: 0}
   holeCount: 0
   trapTileCount: 0
-  itemTileCount: 3
+  itemTileCount: 7
   resetTileCount: 1
   slowedTileCount: 10
   trapTiles: []
@@ -1152,8 +1155,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7e195d11d59891d4c84df76f04c173ec, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 296669d085e0ace45a37de01fa05220a, type: 3}
+  m_Color: {r: 0, g: 0.106984615, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1171,8 +1174,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413444682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: -0.05, z: 0}
-  m_LocalScale: {x: 0.3478527, y: 0.3478527, z: 0.3478527}
+  m_LocalPosition: {x: -0.02, y: -0.01, z: 0}
+  m_LocalScale: {x: 0.86716694, y: 0.86716694, z: 0.86716694}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 67102917}
