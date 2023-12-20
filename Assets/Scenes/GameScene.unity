@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControl: {fileID: 67102916}
-  timeStart: 10
+  timeStart: 45
   timeActive: 1
   TimerText: {fileID: 587032356}
 --- !u!4 &488166818
